@@ -7,4 +7,5 @@ RSpec.describe Chef, type: :model do
     expect(u.class).to eql(Chef)
     expect(u.type).to eql('Chef')
   end
+
 end

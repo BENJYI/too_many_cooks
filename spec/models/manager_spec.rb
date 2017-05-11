@@ -7,4 +7,14 @@ RSpec.describe Manager, type: :model do
     expect(u.class).to eql(Manager)
     expect(u.type).to eql('Manager')
   end
+
+  it "should be able to handle chef-manager relationships" do
+    m = FactoryGirl.create(:manager)
+    expect(m).to be
+    expect(m.chefs.count).to eql(0)
+
+    m.chefs << (chef=FactoryGirl.create(:chef))
+    expect(m.chefs.count).to eql(1)
+    expect(chef.manager).to eql(m)
+  end
 end
