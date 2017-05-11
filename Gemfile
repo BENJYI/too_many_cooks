@@ -42,6 +42,7 @@ group :test do
   gem 'rspec-rails'
   gem 'selenium-webdriver', '~> 2.53.4'
   gem 'timecop'
+  gem 'database_cleaner'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

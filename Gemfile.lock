@@ -72,6 +72,7 @@ GEM
       ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
     concurrent-ruby (1.0.5)
+    database_cleaner (1.6.0)
     diff-lcs (1.3)
     erubi (1.6.0)
     execjs (2.7.0)
@@ -214,6 +215,7 @@ DEPENDENCIES
   byebug
   capybara
   chronic
+  database_cleaner
   devise!
   factory_girl
   faker
