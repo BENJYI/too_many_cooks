@@ -14,7 +14,9 @@ Rails.application.routes.draw do
   authenticate :manager do
     scope :managers  do
       get "example_protected_route" => "managers/application#example_protected_route"
-      resources :restaurants
+      resources :restaurants do
+        resources :menu_items
+      end
     end
   end
 

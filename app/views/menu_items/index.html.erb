@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Menu Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="1">name</th>
+      <th colspan="1">price</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @menu_items.each do |menu_item| %>
+      <tr>
+        <td><%= menu_item.name %></td>
+        <td><%= menu_item.price %></td>
+        <td><%= link_to 'Show', [@restaurant, menu_item] %></td>
+        <td><%= link_to 'Edit', edit_restaurant_menu_item_path(menu_item, restaurant_id: @restaurant.id) %></td>
+        <td><%= link_to 'Destroy', [@restaurant, menu_item], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Menu Item', new_restaurant_menu_item_path %>

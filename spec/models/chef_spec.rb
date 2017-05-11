@@ -8,4 +8,15 @@ RSpec.describe Chef, type: :model do
     expect(u.type).to eql('Chef')
   end
 
+  it "should be able to handle chef-restaurant/menu_items relationships" do
+    m = FactoryGirl.create(:manager)
+    c = FactoryGirl.create(:chef, manager: m)
+    r = FactoryGirl.create(:restaurant, manager: m)
+
+    expect(r.manager).to eql(m)
+    expect(c.manager.restaurant).to eql(r)
+    expect(r.chefs).to match_array([c])
+
+  end
+
 end
