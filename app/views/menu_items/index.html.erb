@@ -5,8 +5,10 @@
 <table>
   <thead>
     <tr>
-      <th colspan="1">name</th>
-      <th colspan="1">price</th>
+      <th colspan="1">Name</th>
+      <th colspan="1">Price</th>
+      <th colspan="1">Created At</th>
+      <th colspan="1">Updated At</th>
     </tr>
   </thead>
 
@@ -15,9 +17,11 @@
       <tr>
         <td><%= menu_item.name %></td>
         <td><%= menu_item.price %></td>
-        <td><%= link_to 'Show', [@restaurant, menu_item] %></td>
-        <td><%= link_to 'Edit', edit_restaurant_menu_item_path(menu_item, restaurant_id: @restaurant.id) %></td>
-        <td><%= link_to 'Destroy', [@restaurant, menu_item], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= menu_item.created_at.stamp("April 21, 2017") %></td>
+        <td><%= menu_item.updated_at.stamp("April 21, 2017") %></td>
+        <td><%= link_to 'Show', menu_item %></td>
+        <td><%= link_to 'Edit', edit_menu_item_path(menu_item) %></td>
+        <td><%= link_to 'Destroy', menu_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -25,4 +29,4 @@
 
 <br>
 
-<%= link_to 'New Menu Item', new_restaurant_menu_item_path %>
+<%= link_to 'New Menu Item', new_menu_item_path %>

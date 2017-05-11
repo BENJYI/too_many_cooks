@@ -9,17 +9,15 @@ class MenuItemsController < ApplicationController
 
   # GET /menu_items/1
   def show
-    @menu_item = @restaurant.menu_items.find(params[:id])
   end
 
   # GET /menu_items/new
   def new
-    @menu_item = MenuItem.new(restaurant: @restaurant)
+    @menu_item = MenuItem.new
   end
 
   # GET /menu_items/1/edit
   def edit
-    @menu_item = @restaurant.menu_items.find(params[:id])
   end
 
   # POST /menu_items
@@ -27,7 +25,7 @@ class MenuItemsController < ApplicationController
     @menu_item = @restaurant.menu_items.build(menu_item_params)
 
     if @menu_item.save
-      redirect_to restaurant_menu_items_path(@restaurant, @menu_item), notice: 'Menu item was successfully created.'
+      redirect_to @menu_item, notice: 'Menu item was successfully created.'
     else
       render :new
     end
@@ -36,7 +34,7 @@ class MenuItemsController < ApplicationController
   # PATCH/PUT /menu_items/1
   def update
     if @menu_item.update(menu_item_params)
-      redirect_to restaurant_menu_items_path(@restaurant, @menu_item), notice: 'Menu item was successfully updated.'
+      redirect_to @menu_item, notice: 'Menu item was successfully updated.'
     else
       render :edit
     end
@@ -45,17 +43,18 @@ class MenuItemsController < ApplicationController
   # DELETE /menu_items/1
   def destroy
     @menu_item.destroy
-    redirect_to restaurant_menu_items_url, notice: 'Menu item was successfully destroyed.'
+    redirect_to menu_items_url, notice: 'Menu item was successfully destroyed.'
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_restaurant
-      @restaurant = Restaurant.find(params[:restaurant_id])
+      pp "~~~~~~~~~~~~~~~~"
+      @restaurant = current_chef.manager.restaurant
     end
 
     def set_menu_item
-      @menu_item = @restaurant.menu_items.find(params[:id])
+      @menu_item = MenuItem.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

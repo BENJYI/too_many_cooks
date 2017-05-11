@@ -26,4 +26,15 @@ RSpec.describe Manager, type: :model do
     m.restaurant = FactoryGirl.create(:restaurant)
     expect(m.restaurant).to be
   end
+
+  describe "Callbacks" do
+    context "#after_create" do
+      it "should create a blank restaurant for the manager" do
+        m = FactoryGirl.create(:manager)
+        expect(m.restaurant).to_not be_nil
+        expect(m.restaurant.name).to be_nil
+        expect(m.restaurant.address).to be_nil
+      end
+    end
+  end
 end
