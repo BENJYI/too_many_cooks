@@ -19,9 +19,11 @@ RSpec.feature "User Sign Up", type: :feature, driver: :selenium do
 
     # The other protected routes should *not* be accessible though
     visit "/chefs/example_protected_route"
+    expect(page).to have_content("Log in -  Chef")
     expect(page).to_not have_content("chefs/application_controller#example_protected_route is working")
 
     visit "/managers/example_protected_route"
+    expect(page).to have_content("Log in -  Manager")
     expect(page).to_not have_content("managers/application_controller#example_protected_route is working")
 
   end
