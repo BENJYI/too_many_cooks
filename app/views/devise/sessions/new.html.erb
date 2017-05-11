@@ -1,5 +1,8 @@
 <h2>Log in - <%= resource_name.capitalize %></h2>
 
+<%= devise_error_messages! %>
+<h3><%= flash[:alert] if flash[:alert] %></h3>
+
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
     <%= f.label :email %><br />
