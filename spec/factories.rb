@@ -20,4 +20,8 @@ FactoryGirl.define do
     type      "Chef"
   end
 
+  factory :restaurant do
+    name      { Faker::Company.name }
+  end
+
 end

@@ -12,7 +12,10 @@ Rails.application.routes.draw do
   # 2. Managers
   devise_for :managers
   authenticate :manager do
-    get "/managers/example_protected_route" => "managers/application#example_protected_route"
+    scope :managers  do
+      get "example_protected_route" => "managers/application#example_protected_route"
+      resources :restaurants
+    end
   end
 
   # 3. Chefs
