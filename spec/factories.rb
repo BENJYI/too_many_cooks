@@ -24,4 +24,9 @@ FactoryGirl.define do
     name      { Faker::Company.name }
   end
 
+  factory :menu_item do
+    association :restaurant
+    name      { Faker::Company.name }
+  end
+
 end
