@@ -13,7 +13,7 @@ module Managers
     # PATCH/PUT /restaurants/1
     def update
       if @restaurant.update(restaurant_params)
-        redirect_to restaurants_path, notice: 'Restaurant was successfully updated.'
+        redirect_to manager_restaurants_path, notice: 'Restaurant was successfully updated.'
       else
         render :edit
       end
@@ -23,11 +23,6 @@ module Managers
       # Use callbacks to share common setup or constraints between actions.
       def set_restaurant
         @restaurant = current_manager.restaurant
-      end
-
-      # Only allow a trusted parameter "white list" through.
-      def restaurant_params
-        params.require(:restaurant).permit(:name, :address, :manager_id)
       end
   end
 end
