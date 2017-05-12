@@ -1,31 +1,18 @@
 class RestaurantsController < ApplicationController
-  before_action :set_restaurant
+  before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
 
-  # GET /restaurants (it only displays the mangers ONE restauarnt)
+  # GET /restaurants
   def index
+    @restaurants = Restaurant.all
   end
 
-  # GET /restaurants/1/edit
-  def edit
-  end
-
-  # PATCH/PUT /restaurants/1
-  def update
-    if @restaurant.update(restaurant_params)
-      redirect_to restaurants_path, notice: 'Restaurant was successfully updated.'
-    else
-      render :edit
-    end
+  # GET /restaurants/1
+  def show
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_restaurant
-      @restaurant = current_manager.restaurant
-    end
-
-    # Only allow a trusted parameter "white list" through.
-    def restaurant_params
-      params.require(:restaurant).permit(:name, :address, :manager_id)
+      @restaurant = Restaurant.find(params[:id])
     end
 end

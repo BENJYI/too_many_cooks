@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Restaurant:</h1>
+<p>
+  <strong>Name:</strong>
+  <%= @restaurant.name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @restaurant.address %>
+</p>
+
+<p>
+  <strong>Manager:</strong>
+  <%= @restaurant.manager %>
+</p>
+
+<%= link_to 'Edit', edit_manager_restaurant_path(@restaurant) %> |
+<%= link_to 'Back', manager_restaurants_path %>
+
+<br>
+<hr>
+
+<h2>Menu Items: (Only your chefs can add/remove/edit menu items)</h2>
+<table>
+  <thead>
+    <tr>
+      <th colspan="1">Name</th>
+      <th colspan="1">Price</th>
+      <th colspan="1">Created At</th>
+      <th colspan="1">Updated At</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @restaurant.menu_items.each do |menu_item| %>
+      <tr>
+        <td><%= menu_item.name %></td>
+        <td><%= menu_item.price %></td>
+        <td><%= menu_item.created_at.stamp("April 21, 2017") %></td>
+        <td><%= menu_item.updated_at.stamp("April 21, 2017") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

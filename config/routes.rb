@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     scope :managers  do
       get "/" => "managers/application#dashboard"
       get "example_protected_route" => "managers/application#example_protected_route"
-      resources :restaurants, only: [:index, :edit, :update]
+      resources :restaurants, as: :manager_restaurants, :controller => "managers/restaurants", only: [:index, :edit, :update]
       resources :chefs
     end
   end
@@ -28,5 +28,8 @@ Rails.application.routes.draw do
       resources :menu_items
     end
   end
+
+  # 4: All Users
+  resources :restaurants, only: [:index, :show]
 
 end

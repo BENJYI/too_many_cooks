@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Restaurants</strong>
+  <%= @restaurant.name %>
+</p>
+
+<p>
+  <strong>Address</strong>
+  <%= @restaurant.address %>
+</p>
+
+<p>
+  <strong>Address</strong>
+  <%= @restaurant.to_coordinates %>
+</p>
+
+<h3>Menu Items:</h3>
+<table>
+  <tbody>
+    <% @restaurant.menu_items.each.with_index do |menu_item, i| %>
+      <tr>
+        <td><b><%= i+1 %>.) </b><%= menu_item.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
