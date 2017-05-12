@@ -6,6 +6,7 @@ class Manager < User
 
   private
     def create_blank_restaurant
-      Restaurant.create! manager: self
+      restaurant = Restaurant.new manager: self
+      restaurant.save(validate: false)
     end
 end

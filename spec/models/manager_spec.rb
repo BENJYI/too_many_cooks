@@ -21,9 +21,6 @@ RSpec.describe Manager, type: :model do
   it "should be able to handle manager-restaurant relationships" do
     m = FactoryGirl.create(:manager)
     expect(m).to be
-    expect(m.restaurant).to be_nil
-
-    m.restaurant = FactoryGirl.create(:restaurant)
     expect(m.restaurant).to be
   end
 

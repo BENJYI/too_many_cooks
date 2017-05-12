@@ -5,6 +5,7 @@ RSpec.feature "Manager Sign Up", type: :feature, driver: :selenium do
 
     expect(Manager.count).to eql(0)
     visit new_manager_registration_path
+    fill_in "manager_name", with: "Rspec HighHo"
     fill_in "manager_email", with: "rspec@test.com"
     fill_in "manager_password", with: "password123"
     fill_in "manager_password_confirmation", with: "password123"

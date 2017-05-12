@@ -6,6 +6,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates_presence_of :address, :name
+  validates_presence_of :name
+  validates_presence_of :address, if: :is_normal_user
 
+  private
+    def is_normal_user
+      self.type.blank?
+    end
 end

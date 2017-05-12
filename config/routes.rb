@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   authenticate :chef do
     scope :chefs do
       get "/" => "chefs/application#dashboard"
-      get "/chefs/example_protected_route" => "chefs/application#example_protected_route"
+      get "example_protected_route" => "chefs/application#example_protected_route"
       resources :menu_items
     end
   end

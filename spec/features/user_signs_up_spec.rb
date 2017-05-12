@@ -5,6 +5,8 @@ RSpec.feature "User Sign Up", type: :feature, driver: :selenium do
 
     expect(User.count).to eql(0)
     visit new_user_registration_path
+    fill_in "user_name", with: "LeBron James"
+    fill_in "user_address", with: "123 Park Place"
     fill_in "user_email", with: "rspec@test.com"
     fill_in "user_password", with: "password123"
     fill_in "user_password_confirmation", with: "password123"
