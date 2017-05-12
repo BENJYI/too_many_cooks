@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   root to: "pages#index"
 
+
   # 1. Users
   devise_for :users
   authenticate :user do
@@ -28,5 +29,8 @@ Rails.application.routes.draw do
       resources :menu_items
     end
   end
+
+  # 4: All Users
+  resources :restaurants
 
 end
