@@ -1,0 +1,29 @@
+<div class="cart">
+  <h5>Current Cusomter: <%= current_customer.email %></h5>
+  <h5>Current Order Items Count: <%= current_order.order_items.count %></h5>
+  <h5>Total Price: <%= current_order.total_price %></h5>
+  <h5>Completely New Order?: <%= !current_order.persisted? %></h5>
+
+  <h3>Temp</h3>
+
+  <% current_order.order_items.each do |oi| %>
+    <div class="order-item">
+      <div class="col name">
+        <b>Name</b>
+        <span><%= oi.menu_item.name %></span>
+      </div>
+
+      <div class="col quantity">
+        <b>Quantity</b>
+        <span><%= oi.quantity %></span>
+      </div>
+
+      <div class="col price">
+        <b>Total</b>
+        <span><%= oi.total_price %></span>
+      </div>
+    </div>
+  <% end %>
+
+
+</div>

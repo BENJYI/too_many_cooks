@@ -21,7 +21,33 @@
     <% @restaurant.menu_items.each.with_index do |menu_item, i| %>
       <tr>
         <td><b><%= i+1 %>.) </b><%= menu_item.name %></td>
+
+        <!-- TODO: Prettier form / Possibly AJAX instead of form post -->
+        
       </tr>
+
+      <tr class="order-item-row">
+        <td>
+          <%= form_with(model: OrderItem.new, local: true) do |form| %>
+            <div class="field">
+              <%= form.label :quantity %>
+              <%= form.select :quantity, (1..10).to_a, id: :order_item_quantity %>
+            </div>
+
+            <div class="actions">
+              <%= form.submit "Add Item" %>
+            </div>
+
+            <!-- Set default params -->
+            <%= form.hidden_field :restaurant_id, value: @restaurant.id, name: :restaurant_id %>
+            <%= form.hidden_field :menu_item_id, value: menu_item.id %>
+          <% end %>
+
+        </td>
+      </tr>
+      
+
+        
     <% end %>
   </tbody>
 </table>

@@ -32,5 +32,6 @@ Rails.application.routes.draw do
 
   # 4: All Users
   resources :restaurants, only: [:index, :show]
+  resources :order_items, only: [:create, :update, :destroy]
 
 end

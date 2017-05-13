@@ -31,7 +31,7 @@ Manager.destroy_all
   10.times do |i|
     m.restaurant.menu_items.create!(
       name: Faker::Beer.name,
-      price: rand(15) + 1
+      price_in_cents: rand(150) + 1
     )
   end
 end

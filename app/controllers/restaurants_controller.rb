@@ -8,7 +8,7 @@ class RestaurantsController < ApplicationController
   def show
     @restaurant = Restaurant.find(params[:id])
 
-    unless current_order.menu_item_restaurant == @restaurant
+    unless current_order.restaurant == @restaurant
       session.delete :order_id
     end
   end

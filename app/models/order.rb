@@ -9,7 +9,7 @@ class Order < ApplicationRecord
   CENTS_IN_DOLLAR = 100
 
   def total_price_in_cents
-    order_items.sum { |oi| oi.menu_item.price_in_cents }
+    order_items.sum { |oi| oi.menu_item.price_in_cents * oi.quantity }
   end
 
   def total_price

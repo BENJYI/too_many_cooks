@@ -25,5 +25,28 @@ RSpec.describe Order, type: :model do
         expect(o.total_price).to eql("$5.00")
       end
     end
+
+    context "with 5 order_items, with varying prices and quantities" do
+      it "returns $7.14" do
+        o = FactoryGirl.create(:order)
+        o.order_items.build(
+          menu_item: FactoryGirl.create(:menu_item, price_in_cents: 111),
+          quantity: 1
+        ).save!
+
+        o.order_items.build(
+          menu_item: FactoryGirl.create(:menu_item, price_in_cents: 111),
+          quantity: 4
+        ).save!
+
+        o.order_items.build(
+          menu_item: FactoryGirl.create(:menu_item, price_in_cents: 53),
+          quantity: 3
+        ).save!
+
+        expect(o.total_price).to eql("$7.14")
+      end
+    end
+
   end
 end
