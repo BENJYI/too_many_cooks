@@ -9,10 +9,10 @@ RSpec.describe Customer, type: :model do
 
   describe "Geocoding" do
     it "sets lat/lng for NYC given a NYC address" do
-      u = FactoryGirl.create(:customer)
-      u.address = "285 Fulton St, New York, NY 10007" # One World Observatory
-      u.save!
-      expect(u.to_coordinates).to eql([40.7130082, -74.0131689])
+      c = FactoryGirl.create(:customer)
+      c.address = "285 Fulton St, New York, NY 10007" # One World Observatory
+      c.save!
+      expect(c.to_coordinates).to eql([40.7130082, -74.0131689])
     end
   end
 end
