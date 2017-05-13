@@ -2,10 +2,10 @@ Rails.application.routes.draw do
 
   root to: "pages#index"
 
-  # 1. Users
-  devise_for :users
-  authenticate :user do
-    get "/users/example_protected_route" => "users/application#example_protected_route"
+  # 1. Customers
+  devise_for :customers
+  authenticate :customer do
+    get "/customers/example_protected_route" => "customers/application#example_protected_route"
   end
 
   # 2. Managers
