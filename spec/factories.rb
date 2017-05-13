@@ -39,4 +39,10 @@ FactoryGirl.define do
     association :customer
   end
 
+  factory :order_item do
+    association :menu_item
+    association :order
+    quantity 1
+  end
+
 end

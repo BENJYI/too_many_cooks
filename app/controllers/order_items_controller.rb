@@ -15,23 +15,15 @@ class OrderItemsController < ApplicationController
   end
 
 
-  # TODO: order_items update and destroy
-
-
   # PATCH/PUT /order_items/1
-  # def update
-  #   if @order_item.update(order_item_params)
-  #     redirect_to @order_item, notice: 'Order item was successfully updated.'
-  #   else
-  #     render :edit
-  #   end
-  # end
-
-  # DELETE /order_items/1
-  # def destroy
-  #   @order_item.destroy
-  #   redirect_to order_items_url, notice: 'Order item was successfully destroyed.'
-  # end
+  def update
+    order_item = current_order.order_items.find(params[:id])
+    if order_item.update(order_item_params)
+      redirect_to current_order.restaurant, notice: 'Order item was successfully updated.'
+    else
+      redirect_to current_order.restaurant
+    end
+  end
 
   private
     def order_item_params

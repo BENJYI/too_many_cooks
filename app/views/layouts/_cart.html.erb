@@ -22,6 +22,21 @@
         <b>Total</b>
         <span><%= oi.total_price %></span>
       </div>
+
+      <div class="order-item-form">
+        <%= form_with(model: oi, local: true) do |form| %>
+          <div class="field">
+            <%= form.label :quantity %>
+            <%= form.select :quantity, (0..10).to_a, id: :order_item_quantity, value: oi.quantity %>
+          </div>
+
+          <div class="actions">
+            <%= form.submit "Update" %>
+          </div>
+
+        <% end %>
+      </div>
+
     </div>
   <% end %>
 
