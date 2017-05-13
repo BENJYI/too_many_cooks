@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :order_items
   root to: "pages#index"
 
   # 1. Customers
