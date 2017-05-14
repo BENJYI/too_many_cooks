@@ -1,12 +1,17 @@
 Rails.application.routes.draw do
 
-  resources :order_items
   root to: "pages#index"
 
   # 1. Customers
   devise_for :customers
   authenticate :customer do
-    get "/customers/example_protected_route" => "customers/application#example_protected_route"
+    resources :order_items, only: [:create, :update]
+    scope :customers do
+      get "example_protected_route" => "customers/application#example_protected_route"
+    end
+    namespace :customers do
+      post "checkout" => "application#checkout"
+    end
   end
 
   # 2. Managers
@@ -32,6 +37,5 @@ Rails.application.routes.draw do
 
   # 4: All Users
   resources :restaurants, only: [:index, :show]
-  resources :order_items, only: [:create, :update]
 
 end
