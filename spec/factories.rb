@@ -34,4 +34,15 @@ FactoryGirl.define do
     price_in_cents     { 100 }
   end
 
+  factory :order do
+    association :restaurant
+    association :customer
+  end
+
+  factory :order_item do
+    association :menu_item
+    association :order
+    quantity 1
+  end
+
 end

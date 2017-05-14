@@ -5,7 +5,13 @@ Rails.application.routes.draw do
   # 1. Customers
   devise_for :customers
   authenticate :customer do
-    get "/customers/example_protected_route" => "customers/application#example_protected_route"
+    resources :order_items, only: [:create, :update]
+    scope :customers do
+      get "example_protected_route" => "customers/application#example_protected_route"
+    end
+    namespace :customers do
+      post "checkout" => "application#checkout"
+    end
   end
 
   # 2. Managers

@@ -1,0 +1,55 @@
+<div class="cart">
+  <h5>Current Customer: <%= current_customer.email %></h5>
+  <h5>Balance: <%= current_customer.balance %></h5>
+  <h5>Current Order Items Count: <%= current_order.order_items.count %></h5>
+  <h5>Total Price: <%= current_order.total_price %></h5>
+  <h5>Completely New Order?: <%= !current_order.persisted? %></h5>
+
+  <h3>Temp</h3>
+
+  <% current_order.order_items.each do |oi| %>
+    <div class="order-item">
+      <div class="col name">
+        <b>Name</b>
+        <span><%= oi.menu_item.name %></span>
+      </div>
+
+      <div class="col quantity">
+        <b>Quantity</b>
+        <span><%= oi.quantity %></span>
+      </div>
+
+      <div class="col price">
+        <b>Total</b>
+        <span><%= oi.total_price %></span>
+      </div>
+
+      <div class="order-item-form">
+        <%= form_with(model: oi, local: true) do |form| %>
+          <div class="field">
+            <%= form.label :quantity %>
+            <%= form.select :quantity, (0..10).to_a, id: :order_item_quantity, value: oi.quantity %>
+          </div>
+
+          <div class="actions">
+            <%= form.submit "Update" %>
+          </div>
+
+        <% end %>
+      </div>
+
+    </div>
+  <% end %>
+
+  <!-- CHECKOUT -->
+  <div class="checkout-panel">
+    <h3>Checkout</h3>
+
+    <%= form_with url: customers_checkout_path, local: true do |form| %>
+      <%= form.submit "Place Order" %>
+    <% end %>
+  </div>
+
+
+
+</div>

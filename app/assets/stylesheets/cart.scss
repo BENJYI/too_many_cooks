@@ -1,0 +1,54 @@
+// TODO: Temp styling for cart. Thumbsucker needs to redo this.
+
+.cart {
+  background: yellow;
+  padding: 0.8em;
+  outline: 2px solid red;
+
+  position: fixed;
+  right: 2px;
+  top: 2px;
+  width: 360px;
+  height: 100%;
+
+  h5 {
+    margin: 0;
+    margin-bottom: 0.2em; 
+  }
+
+  .order-item {
+    background: lighten(green, 25%);
+    margin-bottom: 1em;
+    display: block;
+    width: 100%;
+    &::after {
+      display: block;
+      content: "";
+      clear: both;
+    }
+
+    font-size: 10px;
+
+    .col {
+      display: block;
+      float: left;
+
+    }
+    .name {
+      width: 50%;
+    }
+
+    .quantity {
+      width: 25%;
+    }
+
+    .total-price {
+      width: 25%;
+    }
+  }
+
+  .checkout-panel {
+    outline: 2px solid green;
+    background: lighten(orange, 20%);
+  }
+}
