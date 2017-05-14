@@ -14,7 +14,6 @@ class OrderItemsController < ApplicationController
     end
   end
 
-
   # PATCH/PUT /order_items/1
   def update
     order_item = current_order.order_items.find(params[:id])
