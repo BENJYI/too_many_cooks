@@ -1,5 +1,6 @@
 <div class="cart">
-  <h5>Current Cusomter: <%= current_customer.email %></h5>
+  <h5>Current Customer: <%= current_customer.email %></h5>
+  <h5>Balance: <%= current_customer.balance %></h5>
   <h5>Current Order Items Count: <%= current_order.order_items.count %></h5>
   <h5>Total Price: <%= current_order.total_price %></h5>
   <h5>Completely New Order?: <%= !current_order.persisted? %></h5>
@@ -39,6 +40,16 @@
 
     </div>
   <% end %>
+
+  <!-- CHECKOUT -->
+  <div class="checkout-panel">
+    <h3>Checkout</h3>
+
+    <%= form_with url: customers_checkout_path, local: true do |form| %>
+      <%= form.submit "Place Order" %>
+    <% end %>
+  </div>
+
 
 
 </div>
