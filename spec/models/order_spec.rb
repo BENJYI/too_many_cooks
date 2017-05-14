@@ -49,4 +49,72 @@ RSpec.describe Order, type: :model do
     end
 
   end
+
+  describe "#place_order" do
+    before do
+      @order = FactoryGirl.create(:order)
+      5.times do |i|
+        mi = FactoryGirl.create(:menu_item, price_in_cents: 100)
+        @order.order_items.create!(menu_item: mi, order: @order, quantity: 1)
+      end
+    end
+
+    specify "sanity check to make sure everything is setup properly" do
+      expect(@order).to be
+      expect(@order.order_items.count).to eql(5)
+    end
+
+    context "Customer with balance less than total_price in cart" do
+      it "should have 0 balance" do
+        expect(@order.customer.balance_in_cents).to eql(0)
+      end
+
+      it "returns false" do
+        expect(@order.place_order).to eql(false)
+      end
+
+      it "should not change balance" do
+        @order.place_order
+        expect(@order.customer.balance_in_cents).to eql(0)
+      end
+
+      it "should have status:started" do
+        @order.place_order
+        expect(@order.status).to eql('started')
+      end
+
+      it "should return false if the there are 0 order_items" do
+        @order.order_items.destroy_all
+        expect(@order.order_items.count).to eql(0)
+        expect(@order.place_order).to eql(false)
+      end
+    end
+
+    context "Customer with balance greater than or equal to total_price in cart" do
+      before do
+        @order.customer.balance_in_cents = @order.total_price_in_cents + 1000
+        @order.customer.save!
+      end
+
+      it "should return the order" do
+        expect(@order.place_order).to eql(true)
+      end
+
+      it "should subtract total_price from balance" do
+        @order.place_order
+        expect(@order.customer.balance_in_cents).to eql(1000)
+      end
+
+      it "should have status:pending" do
+        @order.place_order
+        expect(@order.status).to eql('pending')
+      end
+      
+      it "should return false if the there are 0 order_items" do
+        @order.order_items.destroy_all
+        expect(@order.order_items.count).to eql(0)
+        expect(@order.place_order).to eql(false)
+      end
+    end
+  end
 end
