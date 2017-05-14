@@ -3,6 +3,7 @@ module Managers
     protect_from_forgery with: :exception
 
     def dashboard
+      @orders = current_manager.restaurant.orders
       render "managers/dashboard"
     end
 

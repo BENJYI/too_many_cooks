@@ -34,4 +34,6 @@ Manager.destroy_all
       price_in_cents: rand(150) + 1
     )
   end
+
+  
 end

@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   devise_for :managers
   authenticate :manager do
     scope :managers  do
-      get "/" => "managers/application#dashboard"
+      get "/" => "managers/application#dashboard", as: :managers_dashboard
       get "example_protected_route" => "managers/application#example_protected_route"
       resources :restaurants, as: :manager_restaurants, :controller => "managers/restaurants", only: [:index, :edit, :update]
       resources :chefs
@@ -37,5 +37,6 @@ Rails.application.routes.draw do
 
   # 4: All Users
   resources :restaurants, only: [:index, :show]
+  resources :orders, only: [:update]
 
 end

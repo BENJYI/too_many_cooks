@@ -24,5 +24,9 @@ module Managers
       def set_restaurant
         @restaurant = current_manager.restaurant
       end
+
+      def restaurant_params
+        params.require(:restaurant).permit(:name, :address)
+      end
   end
 end
