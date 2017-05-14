@@ -16,6 +16,7 @@ gem 'rails', '~> 5.1.0'
 
 # Assets
 gem 'bootstrap-sass'
+gem 'font-awesome-rails', git: 'https://github.com/bokmann/font-awesome-rails', branch: 'master'
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'

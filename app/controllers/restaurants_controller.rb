@@ -1,7 +1,7 @@
 class RestaurantsController < ApplicationController
   # GET /restaurants
   def index
-    @restaurants = Restaurant.all
+    @restaurants = Restaurant.where("name ilike '%#{params[:name]}%'")
   end
 
   # GET /restaurants/1

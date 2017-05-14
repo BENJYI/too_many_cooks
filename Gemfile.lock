@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/bokmann/font-awesome-rails
+  revision: 6875363e13230e0c9266602e1cdc411e042c1f9f
+  branch: master
+  specs:
+    font-awesome-rails (4.7.0.2)
+      railties (>= 3.2, < 5.2)
+
+GIT
   remote: https://github.com/plataformatec/devise
   revision: ee01bac8b0b828b3da0d79c46115ba65c433d6c8
   specs:
@@ -227,6 +235,7 @@ DEPENDENCIES
   devise!
   factory_girl_rails
   faker
+  font-awesome-rails!
   foreman
   geocoder
   geokit-rails
