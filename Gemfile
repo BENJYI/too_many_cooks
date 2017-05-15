@@ -7,6 +7,7 @@ end
 
 
 # Rails
+gem 'faker'
 gem 'foreman'
 gem 'geocoder' # Geocode address -> [lat, lng]
 gem 'geokit-rails' # Using for distance calculatiosn (i.e. "restaurants within 5 miles of user")
@@ -28,7 +29,6 @@ gem 'stamp'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'faker'
 end
 
 group :development do
