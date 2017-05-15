@@ -10,12 +10,21 @@
 
 Manager.destroy_all
 
+customer = Customer.create!(
+  name: Faker::Name.name,
+  email: Faker::Internet.email, 
+  password: "password", 
+  password_confirmation: "password",
+  address: "6926 5th ave Brooklyn, NY 11209"
+)
+
 20.times do |i|
   m = Manager.create!(
     name: Faker::Name.name,
     email: Faker::Internet.email, 
     password: "password", 
-    password_confirmation: "password")
+    password_confirmation: "password"
+  )
   m.restaurant.name = Faker::Company.name;
   m.restaurant.address = Faker::Address.street_address;
   m.restaurant.save!;
@@ -25,7 +34,17 @@ Manager.destroy_all
       name: Faker::Name.name,
       email: Faker::Internet.email, 
       password: "password", 
-      password_confirmation: "password")
+      password_confirmation: "password"
+    )
+  end
+
+  2.times do |j|
+    m.couriers.create!(
+      name: Faker::Name.name,
+      email: "courier#{i}#{j}@test.com", 
+      password: "password", 
+      password_confirmation: "password"
+    )
   end
 
   10.times do |i|
@@ -35,5 +54,9 @@ Manager.destroy_all
     )
   end
 
-  
+  3.times do |i|
+    m.restaurant.orders.create!(status: :pending, customer: customer)
+    m.restaurant.orders.create!(status: :approved, customer: customer)
+    m.restaurant.orders.create!(status: :delivered, customer: customer)
+  end  
 end

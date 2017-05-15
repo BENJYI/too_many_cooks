@@ -8,4 +8,5 @@ class Restaurant < ApplicationRecord
   validates_presence_of :address, :name
 
   delegate :chefs, to: :manager
+  delegate :couriers, to: :manager
 end

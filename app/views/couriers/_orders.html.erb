@@ -1,16 +1,5 @@
-<h1>Managers Dashboard</h1>
-
-<p id="notice"><%= notice %></p>
-
-<%= link_to "Edit Restaurant", manager_restaurants_path %>
-<br>
-
-<%= link_to "Manage Chefs", chefs_path %>
-<br>
-<%= link_to "Manage Couriers", couriers_path %>
-
-<% @orders.each do |o| %>
-  <div class="manager-order-panel">
+<% orders.each do |o| %>
+  <div class="courier-order-panel">
     <div class="order">
       <div class="col customer-id">
         <b>Customer E-mail:</b>
@@ -24,13 +13,9 @@
     </div>
 
     <div class="update-status-form">
-      <%= form_with(model: [:managers, o], method: "PUT", local: true) do |form| %>
+      <%= form_with(model: [:couriers, o], method: "PUT", local: true) do |form| %>
         <div class="field">
           <%= form.label :status %>
-
-          <%= form.radio_button :status, :pending %>
-          <%= form.label :status, :pending, style: "display: inline-block" %>
-          <br />
 
           <%= form.radio_button :status, :approved %>
           <%= form.label :status, :approved, style: "display: inline-block" %>
@@ -43,6 +28,7 @@
 
         <div class="actions">
           <%= form.submit "Update Status" %>
+          <%= link_to "Show Order", [:couriers, o], class: "" %>
         </div>
       <% end %>
     </div>

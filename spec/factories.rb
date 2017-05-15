@@ -23,6 +23,14 @@ FactoryGirl.define do
     type      "Chef"
   end
 
+  factory :courier do
+    name      { Faker::Name.name }
+    email     { Faker::Internet.email }
+    address   { Faker::Address.street_address }
+    password  "password"
+    type      "Courier"
+  end
+
   factory :restaurant do
     name      { Faker::Company.name }
     address   { Faker::Address.street_address }

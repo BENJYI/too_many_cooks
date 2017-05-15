@@ -1,0 +1,12 @@
+<h1>Order Details</h1>
+
+<h2>Customer Details:</h2>
+<p>Email: <%= @order.customer.email %></p>
+<p>Restaurant Address: <%= @order.restaurant.address %></p>
+<p>Customer's Address: <%= @order.customer.address %></p>
+<p>Order placed: <%= @order.created_at.stamp("March 30, 1991 12:30 PM") %></p>
+
+<br>
+<h2>Directions:</h2>
+<iframe width="600" height="450" frameborder="0" style="border:0"
+src="https://www.google.com/maps/embed/v1/directions?origin=<%= @order.restaurant.to_google_maps_coords %>&destination=<%= @order.customer.to_google_maps_coords %>&key=AIzaSyBW_4WdBVi0a8nY_yW6I6VF8vk1HpoiNOY" allowfullscreen></iframe>

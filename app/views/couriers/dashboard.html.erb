@@ -1,0 +1,11 @@
+<h1>Courier Dashboard</h1>
+
+
+<h2>Approved Orders</h2>
+<%= render partial: "couriers/orders", locals: { orders: @approved_orders } %>
+
+<br/>
+<br/>
+
+<h2>Delivered Orders</h2>
+<%= render partial: "couriers/orders", locals: { orders: @delivered_orders } %>
