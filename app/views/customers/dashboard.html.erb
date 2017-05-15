@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<div id="customer-account-settings">
+  <h1>Customer Dashboard</h1>
+
+  <br>
+
+  <h3><%= @customer.name %></h3>
+  <h3>Current Balance: <%= @customer.balance %></h3>
+  <h3>Current Address: <%= @customer.address %></h3>
+  
+  <div class="stripe-form">
+    <form action="/customers/charge" method="post" id="payment-form">
+
+      <% if current_customer.stripe_id.nil? %>
+        <label>
+          <span>Name</span>
+          <input name="cardholder-name" class="field" placeholder="John Doe" />
+        </label>
+        <label>
+          <span>Card</span>
+          <div id="card-element" class="field"></div>
+        </label>
+      <% else %>
+      <% end %>
+
+      <button type="submit">Pay $25</button>
+
+      <div class="outcome">
+        <div class="error" role="alert"></div>
+        <div class="success">
+          Success! Your Stripe token is <span class="token"></span>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+

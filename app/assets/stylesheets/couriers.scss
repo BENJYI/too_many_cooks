@@ -1,0 +1,7 @@
+.courier-direction-mode-box {
+  display: inline-block;
+
+  &.selected a {
+    color: red;
+  }
+}

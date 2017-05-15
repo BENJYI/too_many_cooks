@@ -12,10 +12,12 @@ Rails.application.routes.draw do
   authenticate :customer do
     resources :order_items, only: [:create, :update]
     scope :customers do
+      get "/" => "customers/application#dashboard", as: :customers_dashboard
       get "example_protected_route" => "customers/application#example_protected_route"
     end
     namespace :customers do
       post "checkout" => "application#checkout"
+      post "charge" => "application#charge"
     end
   end
 
