@@ -4,15 +4,14 @@ module Customers
     protect_from_forgery with: :exception
 
     def checkout
+      @restaurant = current_order.restaurant
       if current_order.place_order # returns true or false depending on whether it worked or not
         # Delete session
-        @restaurant = current_order.restaurant
         session.delete :order_id
-
         render "customers/order_confirmation"
       else
         # TODO // Re-route to customer account management page
-        redirect_to restaurant, notice: "Insufficient funds"
+        redirect_to @restaurant, notice: "Insufficient funds"
       end
     end
 
