@@ -1,0 +1,6 @@
+<% restaurant.rating.times do |i| %>
+  <%= fa_stacked_icon "star" %>
+<% end %>
+<% (Restaurant::MAX_STAR_RATING-restaurant.rating).times do |i| %>
+  <%= fa_stacked_icon "star-o" %>
+<% end %>

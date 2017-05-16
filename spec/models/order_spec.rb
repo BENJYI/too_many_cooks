@@ -64,6 +64,7 @@ RSpec.describe Order, type: :model do
       expect(@order.order_items.count).to eql(5)
     end
 
+
     context "Customer with balance less than total_price in cart" do
       it "should have 0 balance" do
         expect(@order.customer.balance_in_cents).to eql(0)
@@ -88,6 +89,13 @@ RSpec.describe Order, type: :model do
         expect(@order.order_items.count).to eql(0)
         expect(@order.place_order).to eql(false)
       end
+
+      it "doesn't create any menu_item_feedbacks" do
+        expect(@order.order_items.count).to eql(5)
+        expect(MenuItemFeedback.count).to eql(0)
+        @order.place_order
+        expect(MenuItemFeedback.count).to eql(0)
+      end        
     end
 
     context "Customer with balance greater than or equal to total_price in cart" do
@@ -115,6 +123,18 @@ RSpec.describe Order, type: :model do
         expect(@order.order_items.count).to eql(0)
         expect(@order.place_order).to eql(false)
       end
+
+      it "create menu_item_feedbacks for each order_item in the order" do
+        expect(@order.order_items.count).to eql(5)
+        expect(MenuItemFeedback.count).to eql(0)
+        @order.place_order
+        expect(MenuItemFeedback.count).to eql(5)
+        expect(MenuItemFeedback.where({
+          customer: @order.customer,
+          order: @order,
+          menu_item_id: @order.order_items.pluck(:menu_item_id)
+        }).count).to eql(5)
+      end        
     end
   end
 end
