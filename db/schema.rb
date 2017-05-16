@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170516024821) do
+ActiveRecord::Schema.define(version: 20170516040650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,20 @@ ActiveRecord::Schema.define(version: 20170516024821) do
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "menu_item_feedbacks", force: :cascade do |t|
+    t.bigint "customer_id"
+    t.bigint "order_id"
+    t.bigint "menu_item_id"
+    t.text "comment"
+    t.integer "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id", "order_id", "menu_item_id"], name: "menu_item_feedbacks_unique_index", unique: true
+    t.index ["customer_id"], name: "index_menu_item_feedbacks_on_customer_id"
+    t.index ["menu_item_id"], name: "index_menu_item_feedbacks_on_menu_item_id"
+    t.index ["order_id"], name: "index_menu_item_feedbacks_on_order_id"
   end
 
   create_table "menu_items", force: :cascade do |t|
@@ -93,5 +107,7 @@ ActiveRecord::Schema.define(version: 20170516024821) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "menu_item_feedbacks", "menu_items"
+  add_foreign_key "menu_item_feedbacks", "orders"
   add_foreign_key "menu_items", "restaurants"
 end

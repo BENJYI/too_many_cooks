@@ -22,6 +22,16 @@ class Order < ApplicationRecord
     self.customer.balance_in_cents = new_balance
     self.customer.save
     self.pending!
+
+    self.order_items.each do |order_item|
+      mif = MenuItemFeedback.new({
+        customer: self.customer,
+        order: self,
+        menu_item: order_item.menu_item
+      })
+      mif.save(validate: false)
+    end
+
     self.save
   end
 end

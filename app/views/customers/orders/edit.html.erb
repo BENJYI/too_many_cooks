@@ -1,0 +1,56 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Order for <%= @order.restaurant.name %></h1>
+<br>
+
+
+<%= form_with(model: [:customers, @order], local: true) do |form| %>
+  <div class="field">
+    <%= form.label :comment %>
+    <%= form.text_area :comment, size: "60x10", placeholder: "Put your fucking comment here you shitbag" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<br>
+<h2>Order Summary</h2>
+<br>
+<table>
+  <thead>
+    <tr>
+      <th colspan="1">Item</th>
+      <th colspan="1">Price</th>
+      <th colspan="1">Feedback</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @order.order_items.each do |oi| %>
+      <tr class="customers-order-fucks">
+        <td><%= oi.menu_item.name %></td>
+        <td><%= oi.menu_item.price %></td>
+        <td>
+          <%= form_with(model: [:customers, current_customer.feedbacks(order_item: oi)], local: true) do |form| %>
+            <div class="field">
+              <%= form.label :comment %>
+              <%= form.text_area :comment, size: "20x10", placeholder: "Put your fucking comment here you shitbag" %>
+            </div>
+
+            <div class="field">
+              <%= form.label :rating %>
+              <%= form.select :rating, (0..5).to_a %>
+            </div>
+
+            <div class="actions">
+              <%= form.submit %>
+            </div>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+  
+</table>

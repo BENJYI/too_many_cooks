@@ -16,7 +16,7 @@
       <tr>
         <td><%= o.restaurant.name %></td>
         <td><%= o.total_price %></td>
-        <td><%= link_to 'Show', [:customers, o], class: ""%></td>
+        <td><%= link_to 'Show', edit_customers_order_path(o), class: ""%></td>
       </tr>
     <% end %>
   </tbody>

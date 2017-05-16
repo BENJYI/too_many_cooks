@@ -8,6 +8,8 @@
 
 # Seeding managers
 
+MenuItemFeedback.destroy_all
+MenuItem.destroy_all
 Manager.destroy_all
 
 customer = Customer.create!(
