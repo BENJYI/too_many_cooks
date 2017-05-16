@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     namespace :customers do
       post "checkout" => "application#checkout"
       post "charge" => "application#charge"
+      resources :orders, only: [:index, :show, :update]
     end
   end
 

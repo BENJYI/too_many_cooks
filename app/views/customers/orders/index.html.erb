@@ -1,0 +1,24 @@
+<h1>Previous Orders</h1>
+
+<br>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="1">Restaurant</th>
+      <th colspan="1">Total</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @orders.each do |o| %>
+      <tr>
+        <td><%= o.restaurant.name %></td>
+        <td><%= o.total_price %></td>
+        <td><%= link_to 'Show', [:customers, o], class: ""%></td>
+      </tr>
+    <% end %>
+  </tbody>
+  
+</table>

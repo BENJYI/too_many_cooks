@@ -1,6 +1,5 @@
 class Order < ApplicationRecord
   include ActionView::Helpers::NumberHelper
-  has_one: :feedback, dependent: :destroy
   has_many :order_items, dependent: :destroy
   belongs_to :customer, class_name: "Customer", foreign_key: "customer_id" 
   belongs_to :restaurant
