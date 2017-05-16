@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<% @orders.each do |o| %>
+  <div class="manager-order-panel">
+    <div class="order">
+      <div class="col customer-id">
+        <b>Customer E-mail:</b>
+        <span><%= o.customer.email %></span>
+      </div>
+
+      <div class="col customer-address">
+        <b>Destination:</b>
+        <span><%= o.customer.address %></span>
+      </div>
+    </div>
+
+    <div class="update-status-form">
+      <%= form_with(model: [:managers, o], method: "PUT", local: true) do |form| %>
+        <div class="field">
+          <%= form.label :status %>
+
+          <%= form.radio_button :status, :pending %>
+          <%= form.label :status, :pending, style: "display: inline-block" %>
+          <br />
+
+          <%= form.radio_button :status, :approved %>
+          <%= form.label :status, :approved, style: "display: inline-block" %>
+          <br />
+
+          <%= form.radio_button :status, :delivered %>
+          <%= form.label :status, :delivered, style: "display: inline-block" %>
+          <br />
+        </div>
+
+        <div class="actions">
+          <%= form.submit "Update Status" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+<% end %>

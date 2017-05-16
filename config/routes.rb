@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     end
 
     namespace :managers do
-      resources :orders, only: [:update]
+      resources :orders, only: [:index, :update]
     end
   end
 
