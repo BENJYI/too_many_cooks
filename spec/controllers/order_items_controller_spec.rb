@@ -47,27 +47,70 @@ RSpec.describe OrderItemsController, type: :controller do
     #   expect(Order.count).to eql(0)
     # end
 
-    context "with valid parameters" do
-      it "creates a new order and adds the correct order_item to the order" do
+    context "without existing cart" do
+      context "with valid parameters" do
+        it "creates a new order and adds the correct order_item to the order" do
+          @customer = FactoryGirl.create(:customer)
+          sign_in @customer
+          expect(Order.count).to eql(0)
+          post :create, params: {
+            restaurant_id: @restaurant.id,
+            order_item: {
+              menu_item_id: @restaurant.menu_items.last.id,
+              quantity: 3
+            }
+          }
+          expect(response).to have_http_status(:found) #302
+          expect(response).to redirect_to(@restaurant)
+          expect(flash[:notice]).to eql("Order item was successfully created.")
+          expect(Order.count).to eql(1)
+
+          order = Order.last
+          expect(order.restaurant).to eql(@restaurant)
+          expect(order.total_price_in_cents).to eql(2 * 3000)
+        end
+      end
+    end
+
+    context "with existing cart" do
+      it "adding an order_item that already exists in the cart should put increment by correct quantity" do
         @customer = FactoryGirl.create(:customer)
         sign_in @customer
         expect(Order.count).to eql(0)
-        post :create, params: { 
-          restaurant_id: @restaurant.id, 
+
+        # This creates the order and adds the first order_item
+        post :create, params: {
+          restaurant_id: @restaurant.id,
           order_item: {
             menu_item_id: @restaurant.menu_items.last.id,
             quantity: 3
           }
         }
-        expect(response).to have_http_status(:found) #302
-        expect(response).to redirect_to(@restaurant)
-        expect(flash[:notice]).to eql("Order item was successfully created.")
-        expect(Order.count).to eql(1)
 
+        expect(Order.count).to eql(1)
         order = Order.last
         expect(order.restaurant).to eql(@restaurant)
         expect(order.total_price_in_cents).to eql(2 * 3000)
+        expect(order.order_items.count).to eql(1)
+        order_item = order.order_items.last
+        expect(order_item.quantity).to eql(3)
+
+        # Add the SAME item again; it should just increment the existing order_item's quantity by 3
+        post :create, params: {
+          restaurant_id: @restaurant.id,
+          order_item: {
+            menu_item_id: @restaurant.menu_items.last.id,
+            quantity: 4
+          }
+        }
+        expect(Order.count).to eql(1)
+        order = Order.last
+        expect(order.total_price_in_cents).to eql(14000)
+        expect(order.order_items.count).to eql(1)
+        order_item = order.order_items.last
+        expect(order_item.quantity).to eql(7)
       end
     end
+
   end
 end
