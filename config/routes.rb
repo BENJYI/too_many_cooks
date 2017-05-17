@@ -64,4 +64,7 @@ Rails.application.routes.draw do
   # 5: All Users
   resources :restaurants, only: [:index, :show]
 
+  # TOO MANY COOKS!
+  get "/too_many_cooks" => "pages#too_many_cooks"
+
 end
