@@ -2,27 +2,26 @@
 
 <h1>Restaurants</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Restaurant</th>
-      <th>Address</th>
-      <th>Rating</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<% @restaurants.each do |restaurant| %>
+  <div class="restaurants-container container" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('<%= restaurant.img_url %>')" %>
+    <div class="row">
+      <div class="col-md-6" style="color: #fff">
+        <h2 style="color: #fff"><%= restaurant.name %></h2>
+      </div>
+      <div class="col-md-6">
+        <%= render partial: "star_rating", locals: { restaurant: restaurant } %>
+      </div>
+    </div>
 
-  <tbody>
-    <% @restaurants.each do |restaurant| %>
-      <tr>
-        <td><%= restaurant.name %></td>
-        <td><%= restaurant.address %></td>
-        <td>
-          <!-- star rating -->
-          <%= render partial: "star_rating", locals: { restaurant: restaurant } %>
-        </td>
+    <div class="row">
+      <div class="col-md-12">
+        <h4 style="color: #c9c9c9"><%= restaurant.address %></h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
         <td><%= link_to  'View Restaurant', restaurant %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      </div>
+    </div>
+  </div>
+<% end %>

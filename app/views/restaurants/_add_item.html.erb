@@ -1,0 +1,17 @@
+<%= form_with(model: OrderItem.new, local: true) do |form| %>
+  <div class="field">
+    <h6 class="col-md-2" style="color:#fff"><%= form.label :quantity %></h6>
+    <h6 class="col-md-2" style="color:#fff"><%= form.select :quantity, (1..10).to_a, id: :order_item_quantity %></h6>
+  </div>
+
+  <div class="col-md-4"></div>
+  <div class="col-md-4" style="float:left">
+    <div class="actions">
+        <%= form.submit "Add Item" %>
+    </div>
+  </div>
+
+  <!-- Set default params -->
+  <%= form.hidden_field :restaurant_id, value: restaurant.id, name: :restaurant_id %>
+  <%= form.hidden_field :menu_item_id, value: menu_item.id %>
+<% end %>

@@ -1,53 +1,95 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Restaurants</strong>
-  <%= @restaurant.name %>
-</p>
+<div class="row">
+  <div class="col-md-5 col-md-offset-0">
+      <iframe width="100%" height="350" frameborder="1" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24153.699938675756!2d-73.94194608406055!3d40.823296052920035!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2f67a65ecf4b3%3A0x7ba1abc2657c1974!2sLondel's!5e0!3m2!1sen!2sus!4v1494813288055"></iframe>
+  </div>
+  <div class="col-md-7 col-md-offset-0">
+      <div class="row">
+          <div class="col-md-12">
+              <h1><%= @restaurant.name %></h1>
+              <h4><%= @restaurant.address %></h4>
+              <p>Lorem ipsum dolor sit amet sodales. Quisque lectus nam lobortis imperdiet condimentum sed blandit erat pellentesque est eget penatibus nam lectus ultricies maecenas wisi. Leo nec nunc. Nisl aenean nisl et donec in eget quisque proin. </p>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-12">
+               <div class="panel">
+          <div class="row">
+              <div class="col-xs-12 col-md-6 text-center" style="height:185px">
+                  <h1 class="rating-num"><%= @restaurant.rating %></h1>
+                  <div class="rating">
+                  </div>
+                  <div>
+                      <span class="glyphicon glyphicon-user"></span>120 total
+                  </div>
+              </div>
+          </div>
+      </div>
 
-<p>
-  <strong>Address</strong>
-  <%= @restaurant.address %>
-</p>
-
-<p>
-  <strong>Address</strong>
-  <%= @restaurant.to_coordinates %>
-</p>
+          </div>
+      </div>
+  </div>
+</div>
 
 <h3>Menu Items:</h3>
-<table>
-  <tbody>
-    <% @restaurant.menu_items.each.with_index do |menu_item, i| %>
-      <tr>
-        <td><b><%= i+1 %>.) </b><%= menu_item.name %></td>
 
-        <!-- TODO: Prettier form / Possibly AJAX instead of form post -->
-        
-      </tr>
-
-      <tr class="order-item-row">
-        <td>
-          <%= form_with(model: OrderItem.new, local: true) do |form| %>
-            <div class="field">
-              <%= form.label :quantity %>
-              <%= form.select :quantity, (1..10).to_a, id: :order_item_quantity %>
+<div class="menu-items-container container" %>
+  <% @restaurant.menu_items.each_slice(3) do |mi1, mi2, mi3| %>
+    <div class="row">
+      <% if !mi1.nil? %>
+        <div class="mi-container col-md-4" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('http://lorempixel.com/400/200/food/')">
+          <div class="row">
+            <div class="col-md-10">
+              <h5 style="color: #fff"><%= mi1.name %></h5>
             </div>
-
-            <div class="actions">
-              <%= form.submit "Add Item" %>
+            <div class="col-md-2">
+              <h5 style="color: #fff"><%= mi1.price_in_cents %></h5>
             </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <%= render partial: "add_item", locals: { restaurant: @restaurant, menu_item: mi1 } %>
+            </div>
+          </div>
+        </div>
+      <% end %>
 
-            <!-- Set default params -->
-            <%= form.hidden_field :restaurant_id, value: @restaurant.id, name: :restaurant_id %>
-            <%= form.hidden_field :menu_item_id, value: menu_item.id %>
-          <% end %>
+      <% if !mi2.nil? %>
+        <div class="mi-container col-md-4" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('http://lorempixel.com/400/200/food/')">
+          <div class="row">
+            <div class="col-md-10">
+              <h5 style="color: #fff"><%= mi2.name %></h5>
+            </div>
+            <div class="col-md-2">
+              <h5 style="color: #fff"><%= mi2.price_in_cents %></h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <%= render partial: "add_item", locals: { restaurant: @restaurant, menu_item: mi2 } %>
+            </div>
+          </div>
+        </div>
+      <% end %>
 
-        </td>
-      </tr>
-      
-
-        
-    <% end %>
-  </tbody>
-</table>
+      <% if !mi3.nil? %>
+        <div class="mi-container col-md-4" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('http://lorempixel.com/400/200/food/')">
+          <div class="row">
+            <div class="col-md-10">
+              <h5 style="color: #fff"><%= mi3.name %></h5>
+            </div>
+            <div class="col-md-2">
+              <h5 style="color: #fff"><%= mi3.price_in_cents %></h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12>
+              <%= render partial: "add_item", locals: { restaurant: @restaurant, menu_item: mi3 } %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -8,17 +8,19 @@ class Restaurant < ApplicationRecord
   has_many :orders, dependent: :destroy
 
   validates_presence_of :address, :name
+  validates :rating, numericality: { greater_than_or_equal_to: 0 }
+  validates :rating, numericality: { less_than_or_equal_to: 0 }
 
   delegate :chefs, to: :manager
   delegate :couriers, to: :manager
 
-  def rating
-    menu_item_feedbacks = MenuItemFeedback.where(menu_item: menu_items)
-    rated_feedbacks = menu_item_feedbacks.where.not(rating: nil)
-    return 0 if rated_feedbacks.count == 0
-    star_count = (rated_feedbacks.sum{|feedback| feedback.rating } / rated_feedbacks.count.to_f).round
-    return star_count
-  end
+  # def rating
+  #   menu_item_feedbacks = MenuItemFeedback.where(menu_item: menu_items)
+  #   rated_feedbacks = menu_item_feedbacks.where.not(rating: nil)
+  #   return 0 if rated_feedbacks.count == 0
+  #   star_count = (rated_feedbacks.sum{|feedback| feedback.rating } / rated_feedbacks.count.to_f).round
+  #   return star_count
+  # end
 
   def pretty_rating
     return "not-yet-rated" if rating == 0

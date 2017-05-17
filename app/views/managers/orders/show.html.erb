@@ -34,7 +34,7 @@
           <% elsif chef.excellent? %>
             <span>(Already At Max)</span>
           <% else %>
-            <a class="managers-upvote-chef" href="#" data-chef-id="<%= chef.id %>">
+            <a class="managers-upvote-chef" data-chef-id="<%= chef.id %>">
               <i class="fa fa-thumbs-up" aria-hidden="true"></i>
             </a>
           <% end %>
@@ -43,7 +43,7 @@
           <% if chef.fired? %>
             <span>(Already Fired)</span>
           <% else %>
-            <a class="managers-downvote-chef" data-chef-id="<%= chef.id %>" href="#">
+            <a class="managers-downvote-chef" data-chef-id="<%= chef.id %>">
               <i class="fa fa-thumbs-down" aria-hidden="true"></i>
             </a>
           <% end %>
@@ -52,23 +52,3 @@
     <% end %>
   </tbody>
 </table>
-
-
-<br>
-<br>
-<h3>Approve/Reject feedback: (currently: '<%= @order.status %>') </h3>
-<!-- APPROVE! -->
-<%= form_for [:managers, @order], local: true do |form| %>
-  <div class="actions">
-    <%= form.hidden_field :status, value: :feedback_approved %>
-    <%= form.submit "APPROVE" %>
-  </div>
-<% end %>
-
-<!-- REJECT! -->
-<%= form_for [:managers, @order], local: true do |form| %>
-  <div class="actions">
-    <%= form.hidden_field :status, value: :feedback_rejected %>
-    <%= form.submit "REJECT" %>
-  </div>
-<% end %>
