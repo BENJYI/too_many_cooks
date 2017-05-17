@@ -8,6 +8,8 @@
 
 # Seeding managers
 
+restaurant_json = ActiveSupport::JSON.decode(File.read('db/seed_data/restaurants.json'))
+
 MenuItemFeedback.destroy_all
 MenuItem.destroy_all
 Manager.destroy_all
@@ -21,15 +23,18 @@ customer = Customer.create!(
   balance_in_cents: 999999
 )
 
-20.times do |i|
+restaurant_json.each do |restaurant|
+  c_id = restaurant["id"]
   m = Manager.create!(
     name: Faker::Name.name,
     email: Faker::Internet.email,
     password: "password",
     password_confirmation: "password"
   )
-  m.restaurant.name = Faker::Company.name;
-  m.restaurant.address = Faker::Address.street_address;
+  m.restaurant.name = restaurant["name"]
+  m.restaurant.address = restaurant["location"]["address"];
+  m.restaurant.img_url = restaurant["featured_image"]
+  m.restaurant.rating = restaurant["user_rating"]["aggregate_rating"].to_f.round,
   m.restaurant.save!;
 
   2.times do |i|
@@ -47,13 +52,12 @@ customer = Customer.create!(
         chef: chef
       )
     end
-
   end
 
-  2.times do |j|
+  2.times do |i|
     m.couriers.create!(
       name: Faker::Name.name,
-      email: "courier#{i}#{j}@test.com",
+      email: "courier#{i}#{c_id}@test.com",
       password: "password",
       password_confirmation: "password"
     )
@@ -70,3 +74,6 @@ customer = Customer.create!(
     end
   end
 end
+
+
+# end
