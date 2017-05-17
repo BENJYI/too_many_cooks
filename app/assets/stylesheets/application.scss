@@ -1,0 +1,16 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "scaffolds";
+@import "font-awesome";
+
+@import "custom_bootstrap_from_groupmate";
+@import "custom_styles_from_groupmate";
+
+
+@import "cart";
+@import "couriers";
+@import "customers";
+@import "managers";
+@import "order_items";
+@import "pages";
+@import "restaurants";
