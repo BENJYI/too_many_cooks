@@ -13,11 +13,10 @@
           </div>
         <% end %>
 
-        <%= link_to "Sign Up", new_customer_registration_path, class: "btn btn-default navbar-btn navbar-right action-button" %>
-
         <% if current_customer %>
           <%= link_to "Log out", destroy_customer_session_path, class: "btn btn-default navbar-btn navbar-right action-button", style: "margin-right: 5px; background: rgba(128, 128, 128, 0.31); color: rgb(86, 57, 18);" %>
         <% else %>
+          <%= link_to "Sign Up", new_customer_registration_path, class: "btn btn-default navbar-btn navbar-right action-button" %>
           <%= link_to "Log In", new_customer_session_path, class: "btn btn-default navbar-btn navbar-right action-button", style: "margin-right: 5px; background: rgba(128, 128, 128, 0.31); color: rgb(86, 57, 18);" %>
         <% end %>
       </div>
