@@ -4,8 +4,8 @@ class Order < ApplicationRecord
   has_many :menu_item_feedbacks
   belongs_to :customer, class_name: "Customer", foreign_key: "customer_id"
   belongs_to :restaurant
-
-  enum status: [:started, :pending, :approved, :delivered]
+  default_scope -> { order(updated_at: :desc) }
+  enum status: [:started, :pending, :approved, :delivered, :feedback_approved, :feedback_rejected]
 
   CENTS_IN_DOLLAR = 100
 
