@@ -15,7 +15,10 @@
             <label class="control-label" for="search-field"><i class="glyphicon glyphicon-search"></i></label>
             <input class="form-control search-field" type="search" name="search" id="search-field">
           </div>
-        </form><a class="btn btn-default navbar-btn navbar-right action-button" role="button" href="#" style="background-color:#ffd84c;">Action </a></div>
+        </form>
+
+        <%= link_to "Sign Up", new_customer_registration_path, class: "btn btn-default navbar-btn navbar-right action-button" %>
+      </div>
     </div>
   </nav>
   <div class="container" style="margin:0px;padding:0px;width:auto;"></div>
