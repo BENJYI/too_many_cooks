@@ -4,7 +4,8 @@ class MenuItemsController < ApplicationController
 
   # GET /menu_items
   def index
-    @menu_items = current_chef.menu_items
+    @my_menu_items = current_chef.menu_items
+    @other_menu_items = @restaurant.menu_items.where.not(chef: current_chef)
   end
 
   # GET /menu_items/1
@@ -54,7 +55,7 @@ class MenuItemsController < ApplicationController
     end
 
     def set_menu_item
-      @menu_item = MenuItem.find(params[:id])
+      @menu_item = current_chef.menu_items.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

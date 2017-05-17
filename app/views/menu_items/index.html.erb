@@ -1,7 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Menu Items</h1>
-
+<h2>My Menu Items</h2>
 <table>
   <thead>
     <tr>
@@ -13,7 +12,7 @@
   </thead>
 
   <tbody>
-    <% @menu_items.each do |menu_item| %>
+    <% @my_menu_items.each do |menu_item| %>
       <tr>
         <td><%= menu_item.name %></td>
         <td><%= menu_item.price %></td>
@@ -30,3 +29,31 @@
 <br>
 
 <%= link_to 'New Menu Item', new_menu_item_path %>
+
+<br>
+<br>
+
+<h2>Other Chef's Items</h2>
+<table>
+  <thead>
+    <tr>
+      <th colspan="1">Name</th>
+      <th colspan="1">Price</th>
+      <th colspan="1">Chef</th>
+      <th colspan="1">Created At</th>
+      <th colspan="1">Updated At</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @other_menu_items.each do |menu_item| %>
+      <tr>
+        <td><%= menu_item.name %></td>
+        <td><%= menu_item.price %></td>
+        <td><%= menu_item.chef.name %></td>
+        <td><%= menu_item.created_at.stamp("April 21, 2017") %></td>
+        <td><%= menu_item.updated_at.stamp("April 21, 2017") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
