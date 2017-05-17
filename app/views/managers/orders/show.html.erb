@@ -1,0 +1,27 @@
+<h2>Customer</h2>
+<h5>Name: <%= @order.customer.name %></h5>
+
+<h2>Order Summary</h2>
+<h5></h5>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="1">Item</th>
+      <th colspan="1">Rating</th>
+      <th colspan="1">Comment</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @order.menu_item_feedbacks.each do |mif| %>
+      <tr class="customers-order-fucks">
+        <td><%= mif.menu_item.name %></td>
+        <td><%= mif.rating %></td>
+        <td><%= mif.comment %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Select an option and clear the order: </h2>

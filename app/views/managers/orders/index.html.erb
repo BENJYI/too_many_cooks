@@ -30,12 +30,13 @@
           <%= form.radio_button :status, :delivered %>
           <%= form.label :status, :delivered, style: "display: inline-block" %>
           <br />
-        </div>
 
-        <div class="actions">
-          <%= form.submit "Update Status" %>
+          <div class="actions">
+            <%= form.submit "Update Status" %>
+          </div>
         </div>
       <% end %>
+      <%= link_to "Review Order", managers_order_path(o) %>
     </div>
   </div>
 
