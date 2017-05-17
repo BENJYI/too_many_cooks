@@ -24,4 +24,22 @@
   </tbody>
 </table>
 
-<h2>Select an option and clear the order: </h2>
+
+<br>
+<br>
+<h3>Approve/Reject feedback: (currently: '<%= @order.status %>') </h3>
+<!-- APPROVE! -->
+<%= form_for [:managers, @order], local: true do |form| %>
+  <div class="actions">
+    <%= form.hidden_field :status, value: :feedback_approved %>
+    <%= form.submit "APPROVE" %>
+  </div>
+<% end %>
+
+<!-- REJECT! -->
+<%= form_for [:managers, @order], local: true do |form| %>
+  <div class="actions">
+    <%= form.hidden_field :status, value: :feedback_rejected %>
+    <%= form.submit "REJECT" %>
+  </div>
+<% end %>
