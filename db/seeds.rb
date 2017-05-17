@@ -17,7 +17,8 @@ customer = Customer.create!(
   email: Faker::Internet.email,
   password: "password",
   password_confirmation: "password",
-  address: "6926 5th ave Brooklyn, NY 11209"
+  address: "6926 5th ave Brooklyn, NY 11209",
+  balance_in_cents: 999999
 )
 
 20.times do |i|
@@ -58,9 +59,14 @@ customer = Customer.create!(
     )
   end
 
-  3.times do |i|
-    m.restaurant.orders.create!(status: :pending, customer: customer)
-    m.restaurant.orders.create!(status: :approved, customer: customer)
-    m.restaurant.orders.create!(status: :delivered, customer: customer)
+    3.times do |i|
+    o1 = m.restaurant.orders.create!(status: :pending, customer: customer)
+    o2 = m.restaurant.orders.create!(status: :approved, customer: customer)
+    o3 = m.restaurant.orders.create!(status: :delivered, customer: customer)
+
+    [o1, o2, o3].each do |order|
+      3.times { order.add_item!(menu_item_id: order.restaurant.menu_items.sample.id, quantity: (rand(7) + 1)) }
+      order.place_order
+    end
   end
 end
