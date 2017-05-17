@@ -14,8 +14,8 @@ Manager.destroy_all
 
 customer = Customer.create!(
   name: Faker::Name.name,
-  email: Faker::Internet.email, 
-  password: "password", 
+  email: Faker::Internet.email,
+  password: "password",
   password_confirmation: "password",
   address: "6926 5th ave Brooklyn, NY 11209"
 )
@@ -23,8 +23,8 @@ customer = Customer.create!(
 20.times do |i|
   m = Manager.create!(
     name: Faker::Name.name,
-    email: Faker::Internet.email, 
-    password: "password", 
+    email: Faker::Internet.email,
+    password: "password",
     password_confirmation: "password"
   )
   m.restaurant.name = Faker::Company.name;
@@ -32,27 +32,29 @@ customer = Customer.create!(
   m.restaurant.save!;
 
   2.times do |i|
-    m.chefs.create!(
+    chef = m.chefs.create!(
       name: Faker::Name.name,
-      email: Faker::Internet.email, 
-      password: "password", 
+      email: Faker::Internet.email,
+      password: "password",
       password_confirmation: "password"
     )
+
+    5.times do |i|
+      m.restaurant.menu_items.create!(
+        name: Faker::Beer.name,
+        price_in_cents: rand(150) + 1,
+        chef: chef
+      )
+    end
+
   end
 
   2.times do |j|
     m.couriers.create!(
       name: Faker::Name.name,
-      email: "courier#{i}#{j}@test.com", 
-      password: "password", 
+      email: "courier#{i}#{j}@test.com",
+      password: "password",
       password_confirmation: "password"
-    )
-  end
-
-  10.times do |i|
-    m.restaurant.menu_items.create!(
-      name: Faker::Beer.name,
-      price_in_cents: rand(150) + 1
     )
   end
 
@@ -60,5 +62,5 @@ customer = Customer.create!(
     m.restaurant.orders.create!(status: :pending, customer: customer)
     m.restaurant.orders.create!(status: :approved, customer: customer)
     m.restaurant.orders.create!(status: :delivered, customer: customer)
-  end  
+  end
 end

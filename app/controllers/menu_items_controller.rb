@@ -4,7 +4,7 @@ class MenuItemsController < ApplicationController
 
   # GET /menu_items
   def index
-    @menu_items = @restaurant.menu_items
+    @menu_items = current_chef.menu_items
   end
 
   # GET /menu_items/1
@@ -22,7 +22,8 @@ class MenuItemsController < ApplicationController
 
   # POST /menu_items
   def create
-    @menu_item = @restaurant.menu_items.build(menu_item_params)
+    @menu_item = current_chef.menu_items.build(menu_item_params)
+    @menu_item.restaurant = @restaurant
 
     if @menu_item.save
       redirect_to @menu_item, notice: 'Menu item was successfully created.'
