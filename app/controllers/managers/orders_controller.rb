@@ -1,8 +1,13 @@
 module Managers
   class OrdersController < ApplicationController
+    def show
+      @order = current_manager.restaurant.orders.find(params[:id])
+    end
 
     def index
-      @orders = current_manager.restaurant.orders
+      @orders_to_review = current_manager.restaurant.orders.where(status: :delivered)
+      @orders_already_reviewed = current_manager.restaurant.orders.feedback_reviewed
+      @other_orders = current_manager.restaurant.orders.where(status: [:pending, :approved])
     end
 
     def update

@@ -1,0 +1,49 @@
+<% hide_form ||= false %>
+
+<div class="manager-order-panel">
+  <div class="order">
+    <div class="col order-id">
+      <b>Order ID:</b>
+      <span><%= order.id %></span>
+    </div>
+
+    <div class="col customer-id">
+      <b>Customer E-mail:</b>
+      <span><%= order.customer.email %></span>
+    </div>
+
+    <div class="col customer-address">
+      <b>Destination:</b>
+      <span><%= order.customer.address %></span>
+    </div>
+  </div>
+
+  <div class="update-status-form">
+    <% if hide_form %>
+      <p><b>Feedback</b>: <%= order.feedback_approved? ? "Approved" : "Rejected" %></p>
+    <% else %>
+      <%= form_with(model: [:managers, order], method: "PUT", local: true) do |form| %>
+        <div class="field">
+          <%= form.label :status %>
+
+          <%= form.radio_button :status, :pending %>
+          <%= form.label :status, :pending, style: "display: inline-block" %>
+          <br />
+
+          <%= form.radio_button :status, :approved %>
+          <%= form.label :status, :approved, style: "display: inline-block" %>
+          <br />
+
+          <%= form.radio_button :status, :delivered %>
+          <%= form.label :status, :delivered, style: "display: inline-block" %>
+          <br />
+
+          <div class="actions">
+            <%= form.submit "Update Status" %>
+          </div>
+        </div>
+      <% end %>
+      <%= link_to "Review Order", managers_order_path(order) %>
+    <% end %>
+  </div>
+</div>

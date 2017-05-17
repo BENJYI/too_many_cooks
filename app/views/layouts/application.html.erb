@@ -11,7 +11,7 @@
 
   <body>
     <!-- TODO: This is just the temp cart holder for now. Need to pretty it up and rethink show/hide logic -->
-    <%= render partial: "layouts/cart" if current_customer.present? %>
+    <%= render partial: "layouts/cart" if current_customer.present? && !@hide_cart %>
 
     <%= yield %>
   </body>

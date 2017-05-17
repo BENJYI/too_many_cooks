@@ -13,7 +13,7 @@ module Managers
     # PATCH/PUT /restaurants/1
     def update
       if @restaurant.update(restaurant_params)
-        redirect_to manager_restaurants_path, notice: 'Restaurant was successfully updated.'
+        redirect_to edit_managers_restaurant_path(@restaurant), notice: 'Restaurant was successfully updated.'
       else
         render :edit
       end

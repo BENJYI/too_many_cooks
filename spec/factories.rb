@@ -38,6 +38,7 @@ FactoryGirl.define do
 
   factory :menu_item do
     association :restaurant
+    association :chef
     name      { Faker::Company.name }
     price_in_cents     { 100 }
   end

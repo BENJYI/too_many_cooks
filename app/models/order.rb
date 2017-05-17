@@ -1,10 +1,15 @@
 class Order < ApplicationRecord
   include ActionView::Helpers::NumberHelper
+
+  enum status: [:started, :pending, :approved, :delivered, :feedback_approved, :feedback_rejected]
+
   has_many :order_items, dependent: :destroy
+  has_many :menu_item_feedbacks
   belongs_to :customer, class_name: "Customer", foreign_key: "customer_id"
   belongs_to :restaurant
 
-  enum status: [:started, :pending, :approved, :delivered]
+  default_scope             -> { order(updated_at: :desc) }
+  scope :feedback_reviewed, -> { where(status: [:feedback_approved, :feedback_rejected]) }
 
   CENTS_IN_DOLLAR = 100
 
@@ -14,6 +19,17 @@ class Order < ApplicationRecord
 
   def total_price
     number_to_currency(total_price_in_cents / CENTS_IN_DOLLAR)
+  end
+
+  def add_item!(order_item_params)
+    # If order_item is already in the cart, just increment the quantity
+    if(order_item=self.order_items.find_by menu_item_id: order_item_params[:menu_item_id]).present?
+      order_item.update(quantity: (order_item.quantity + order_item_params[:quantity].to_i))
+    else
+      self.order_items.build(order_item_params)
+    end
+
+    self.save!
   end
 
   def place_order

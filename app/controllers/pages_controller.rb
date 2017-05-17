@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   def index
+    @hide_cart = true
   end
 
   def not_found

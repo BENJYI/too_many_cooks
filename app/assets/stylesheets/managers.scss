@@ -4,3 +4,27 @@
   margin-bottom: 8px;
   padding: 10px;
 }
+
+.managers-menu-item-feedbacks {
+  background: yellow;
+  .fa {
+    font-size: 24px;
+    margin: 5px 8px;
+    margin-top: 10px;
+  }
+
+  .fa-thumbs-up {
+    color: lighten(green, 28%);
+    &:hover { color: green; }
+  }
+
+  .fa-thumbs-down {
+    color: lighten(red, 28%);
+    &:hover { color: red; }
+  }
+
+  .managers-upvote-chef,
+  .managers-downvote-chef {
+    background: none !important;
+  }
+}

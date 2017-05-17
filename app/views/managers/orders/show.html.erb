@@ -1,0 +1,74 @@
+<h2>Customer</h2>
+<h5>Name: <%= @order.customer.name %></h5>
+
+<h2>Order Summary</h2>
+<h5></h5>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="1">Item</th>
+      <th colspan="1">Rating</th>
+      <th colspan="1">Comment</th>
+      <th colspan="1">Chef</th>
+      <th colspan="1">Chef Status</th>
+      <th colspan="1">Upvote Chef</th>
+      <th colspan="1">Downvote Chef</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @order.menu_item_feedbacks.each do |mif| %>
+      <tr class="managers-menu-item-feedbacks">
+        <% chef = mif.menu_item.chef %>
+        <td><%= mif.menu_item.name %></td>
+        <td><%= mif.rating %></td>
+        <td><%= mif.comment %></td>
+        <td>
+          <%= link_to chef.name, edit_chef_path(chef) %>
+        </td>
+        <td><%= chef.status %></td>
+        <td style="text-align: center;">
+          <% if chef.fired? %>
+            <span>(Already Fired)</span>
+          <% elsif chef.excellent? %>
+            <span>(Already At Max)</span>
+          <% else %>
+            <a class="managers-upvote-chef" href="#" data-chef-id="<%= chef.id %>">
+              <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+            </a>
+          <% end %>
+        </td>
+        <td style="text-align: center;" >
+          <% if chef.fired? %>
+            <span>(Already Fired)</span>
+          <% else %>
+            <a class="managers-downvote-chef" data-chef-id="<%= chef.id %>" href="#">
+              <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+            </a>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<br>
+<br>
+<h3>Approve/Reject feedback: (currently: '<%= @order.status %>') </h3>
+<!-- APPROVE! -->
+<%= form_for [:managers, @order], local: true do |form| %>
+  <div class="actions">
+    <%= form.hidden_field :status, value: :feedback_approved %>
+    <%= form.submit "APPROVE" %>
+  </div>
+<% end %>
+
+<!-- REJECT! -->
+<%= form_for [:managers, @order], local: true do |form| %>
+  <div class="actions">
+    <%= form.hidden_field :status, value: :feedback_rejected %>
+    <%= form.submit "REJECT" %>
+  </div>
+<% end %>

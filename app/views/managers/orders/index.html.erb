@@ -1,42 +1,34 @@
 <p id="notice"><%= notice %></p>
 
-<% @orders.each do |o| %>
-  <div class="manager-order-panel">
-    <div class="order">
-      <div class="col customer-id">
-        <b>Customer E-mail:</b>
-        <span><%= o.customer.email %></span>
-      </div>
+<ul>
+  <li><a href="#orders-to-review">Orders To Review</a></li>
+  <li><a href="#orders-already-reviewed">Orders Already Reviewed</a></li>
+  <li><a href="#other-orders">Other Orders</a></li>
+</ul>
 
-      <div class="col customer-address">
-        <b>Destination:</b>
-        <span><%= o.customer.address %></span>
-      </div>
-    </div>
+<h2>Orders To Review for Feedback:</h2>
+<div id="orders-to-review">
+  <% @orders_to_review.each do |order| %>
+    <%= render order %>
+  <% end %>
+  <br>
+  <br>
+</div>
 
-    <div class="update-status-form">
-      <%= form_with(model: [:managers, o], method: "PUT", local: true) do |form| %>
-        <div class="field">
-          <%= form.label :status %>
+<div id="orders-already-reviewed">
+  <h2>Orders Already Reviewed</h2>
+  <% @orders_already_reviewed.each do |order| %>
+    <%= render order, hide_form: true %>
+  <% end %>
+  <br>
+  <br>
+</div>
 
-          <%= form.radio_button :status, :pending %>
-          <%= form.label :status, :pending, style: "display: inline-block" %>
-          <br />
-
-          <%= form.radio_button :status, :approved %>
-          <%= form.label :status, :approved, style: "display: inline-block" %>
-          <br />
-
-          <%= form.radio_button :status, :delivered %>
-          <%= form.label :status, :delivered, style: "display: inline-block" %>
-          <br />
-        </div>
-
-        <div class="actions">
-          <%= form.submit "Update Status" %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-
-<% end %>
+<div id="other-orders">
+  <h2>Other Orders</h2>
+  <% @other_orders.each do |order| %>
+    <%= render order %>
+  <% end %>
+  <br>
+  <br>
+</div>

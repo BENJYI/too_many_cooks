@@ -29,13 +29,15 @@ Rails.application.routes.draw do
     scope :managers  do
       get "/" => "managers/application#dashboard", as: :managers_dashboard
       get "example_protected_route" => "managers/application#example_protected_route"
-      resources :restaurants, as: :manager_restaurants, :controller => "managers/restaurants", only: [:index, :edit, :update]
-      resources :chefs
+      resources :chefs do
+        post "upvote" => "chefs#upvote", on: :collection
+        post "downvote" => "chefs#downvote", on: :collection
+      end
       resources :couriers
     end
-
     namespace :managers do
-      resources :orders, only: [:index, :update]
+      resources :orders, only: [:show, :index, :update]
+      resources :restaurants, only: [:edit, :update]
     end
   end
 
@@ -64,5 +66,8 @@ Rails.application.routes.draw do
 
   # 5: All Users
   resources :restaurants, only: [:index, :show]
+
+  # TOO MANY COOKS!
+  get "/too_many_cooks" => "pages#too_many_cooks"
 
 end

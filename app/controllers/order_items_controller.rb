@@ -4,9 +4,8 @@ class OrderItemsController < ApplicationController
   def create
     order = current_order
     order.restaurant_id = params[:restaurant_id]
-    order.order_items.build(order_item_params)
 
-    if order.save!
+    if order.add_item!(order_item_params)
       session[:order_id] = order.id
       redirect_to order.restaurant, notice: 'Order item was successfully created.'
     else

@@ -4,7 +4,8 @@ class MenuItem < ApplicationRecord
   CENTS_IN_DOLLAR = 100
 
   belongs_to :restaurant
-  
+  belongs_to :chef, class_name: "Chef", foreign_key: "chef_id"
+
   validates_presence_of :name, :price_in_cents
 
   def price
