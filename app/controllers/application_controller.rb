@@ -10,8 +10,8 @@ class ApplicationController < ActionController::Base
   end
 
   def current_order
-    if !session[:order_id].nil?
-      Order.find(session[:order_id])
+    if session[:order_id].present? && (order=Order.find_by(id: session[:order_id]))
+      order
     else
       Order.new customer: current_customer
     end
