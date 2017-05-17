@@ -29,7 +29,10 @@ Rails.application.routes.draw do
     scope :managers  do
       get "/" => "managers/application#dashboard", as: :managers_dashboard
       get "example_protected_route" => "managers/application#example_protected_route"
-      resources :chefs
+      resources :chefs do
+        post "upvote" => "chefs#upvote", on: :collection
+        post "downvote" => "chefs#downvote", on: :collection
+      end
       resources :couriers
     end
     namespace :managers do

@@ -106,6 +106,11 @@ RSpec.describe Chef, type: :model do
         6.times { @chef.upvote }
         8.times { @chef.downvote }
         expect(@chef.status).to eql("neutral")
+
+        @chef.reset_promotion_step!
+        9.times { @chef.upvote }
+        3.times { @chef.downvote }
+        expect(@chef.status).to eql("great")
       end
     end
   end

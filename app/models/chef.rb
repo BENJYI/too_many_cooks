@@ -7,15 +7,13 @@ class Chef < User
   PROMOTION_STEPS = Chef.statuses.keys.freeze
 
   def upvote
+    return if excellent?
     vote amount: 1
   end
 
   def downvote
+    return if fired?
     vote amount: -1
-  end
-
-  def already_at_max?
-    fired? || excellent?
   end
 
   def reset_promotion_step!(status: :neutral, updown: 0)
@@ -38,7 +36,6 @@ class Chef < User
   end
 
   def vote(amount:)
-    return if already_at_max?
     self.update updown: (self.updown + amount)
     promote_or_demote_if_necessary!
     reset_updown_if_necessary!

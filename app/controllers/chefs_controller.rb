@@ -1,5 +1,6 @@
 class ChefsController < ApplicationController
   before_action :set_chef, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_manager!, only: [:upvote, :downvote]
 
   # GET /chefs
   def index
@@ -44,6 +45,18 @@ class ChefsController < ApplicationController
   def destroy
     @chef.destroy
     redirect_to chefs_url, notice: 'Chef was successfully destroyed.'
+  end
+
+  def upvote
+    chef = current_manager.chefs.find(params[:id])
+    chef.upvote
+    render json: {}, status: ok
+  end
+
+  def downvote
+    chef = current_manager.chefs.find(params[:id])
+    chef.downvote
+    render json: {}, status: ok
   end
 
   private
