@@ -34,7 +34,7 @@ restaurant_json.each do |restaurant|
   m.restaurant.name = restaurant["name"]
   m.restaurant.address = restaurant["location"]["address"];
   m.restaurant.img_url = restaurant["featured_image"]
-  m.restaurant.rating = restaurant["user_rating"]["aggregate_rating"].to_a.round,
+  m.restaurant.rating = restaurant["user_rating"]["aggregate_rating"].to_f  .round,
   m.restaurant.save!;
 
   2.times do |i|
@@ -63,17 +63,13 @@ restaurant_json.each do |restaurant|
     )
   end
 
-    3.times do |i|
+  3.times do |i|
     o1 = m.restaurant.orders.create!(status: :pending, customer: customer)
     o2 = m.restaurant.orders.create!(status: :approved, customer: customer)
     o3 = m.restaurant.orders.create!(status: :delivered, customer: customer)
-
     [o1, o2, o3].each do |order|
       3.times { order.add_item!(menu_item_id: order.restaurant.menu_items.sample.id, quantity: (rand(7) + 1)) }
       order.place_order
     end
   end
 end
-
-
-# end

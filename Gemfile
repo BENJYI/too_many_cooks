@@ -11,6 +11,7 @@ gem 'faker'
 gem 'foreman'
 gem 'geocoder' # Geocode address -> [lat, lng]
 gem 'geokit-rails' # Using for distance calculatiosn (i.e. "restaurants within 5 miles of user")
+gem 'json'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.1.0'

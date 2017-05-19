@@ -1,3 +1,6 @@
+# Prerequisites
+1. A running PostgreSQL server (https://www.postgresql.org/download/)
+
 # Get Rails Running:
 
 1. `bundle`
@@ -11,3 +14,10 @@
 2. To run the entire test sutie: `foreman run rspec spec`
 3. To run just models: `foreman run rspec spec/models`, or just feature specs: `foreman run rspec spec/features`, etc...
 4. to run a specific test and optionally, the line: `foreman run rspec rspec/models/user_spec.rb:5`
+
+# Sign-in routes
+
+1. Customer - /customers/sign_up
+2. Manager - /managers
+3. Chef - /chefs
+4.
